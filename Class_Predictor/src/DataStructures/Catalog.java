@@ -106,4 +106,11 @@ public class Catalog {
 			f.printField();
 		}
 	}
+	
+	public Field[] getAllFields() {
+		Field[] ret = new Field[fields.size()];
+		for(int i = 0; i < fields.size(); i++)
+			ret[i] = fields.get(i);
+		return ret;
+	}
 }
