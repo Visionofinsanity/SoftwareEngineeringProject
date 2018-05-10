@@ -2,28 +2,46 @@ import java.util.Timer;
 import java.util.concurrent.TimeUnit;
 
 import DataStructures.Catalog;
-import DataStructures.Student;
+import DataStructures.Course;
 import GetInput.CatalogConstructor;
 import GetInput.DataCompiler;
-import GetInput.DataLoader;
-import GetInput.StudentReader;
-import createGUI.MainMenu;
 
 public class Testing {
-	String FILE_PATH = "/Portales And Ruidoso Students.xlsx";
+	String STUDENT_FILE_PATH = "/Portales And Ruidoso Students.xlsx";
+	String COURSES_FILE_PATH = "/Portales And Ruidoso Courses.xlsx";
+	String PREDICT_PATH = "/Students/students.csv";
 	DataCompiler compiler;
 	private String sPath = "/TestStudents.xlsx";
 	private String cPath = "/TestCourses.xlsx";
 	
 	public Testing(){
+		Catalog cat = CatalogConstructor.constructCatalog("/ENMUcatalog.txt");
 		
-		/*compiler = new DataCompiler(sPath, cPath);
+		/*compiler = new DataCompiler(this.STUDENT_FILE_PATH, this.COURSES_FILE_PATH, cat);
 		compiler.readStudents();
 		compiler.readCourses();
-		compiler.writeStudents();*/
+		System.out.println("Compile complete");
+		compiler.writeStudents();
+		System.out.println("Print complete");*/
 		
-		Catalog cat = CatalogConstructor.constructCatalog("/ENMUcatalog.txt");
-		cat.printCatalog();
+		Predictor pre = new Predictor(PREDICT_PATH, cat);
+		
+		Course[] courses = cat.getField("CS").getAllCourses();
+		pre.makeStatistics();
+		int[] nums = pre.predict(courses);
+		
+		for(int i = 0; i < courses.length; i++) {
+			System.out.println(courses[i].printToFile());
+			System.out.println(nums[i]);
+		}
+		
+		
+		pre.printStats();
+		
+		
+		//System.out.println("Printing Caltalog");
+		//cat.printCatalog();
+		//System.out.println("WHatever");
 		
 		
 		//MainMenu gui = new MainMenu();

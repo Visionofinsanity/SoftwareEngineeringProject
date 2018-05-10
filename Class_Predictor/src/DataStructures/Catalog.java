@@ -43,7 +43,7 @@ public class Catalog {
 			/*System.out.println("Low: " + lowB + " Mid: " + mid + " Hi: " + hiB);
 			System.out.println("Mid:" + fields.get(mid).abrName);
 			System.out.println("Abr:" + abrName);*/
-			if(fields.get(mid).abrName == abrName)
+			if(fields.get(mid).abrName.equals(abrName))
 				return fields.get(mid);
 			else if(greaterOrEqual(fields.get(mid).abrName,abrName)) {
 				hiB = mid - 1;
@@ -51,18 +51,33 @@ public class Catalog {
 				lowB = mid + 1;
 			}
 		}
+		//System.out.println("Returning Null");
 		return null;
 	}
 	
 	public Course getCourse(String courseStr) {
+		//System.out.println(courseStr);
 		int index = -1;
 		for(int i = 0; i < courseStr.length(); i++) {
 			if(index == -1 && Character.isDigit(courseStr.charAt(i)))
 				index = i;
 		}
-		int num = Integer.parseInt(courseStr.substring(index));
-		System.out.println(courseStr);
-		return getField(courseStr.substring(0, index)).getCourse(num);
+		if(index == -1) {
+			//System.out.println(courseStr);
+			return null;
+		}
+		int num = 0;
+		try {
+			num = Integer.parseInt(courseStr.substring(index));
+		}catch( NumberFormatException e){
+			return null;
+		}
+		//System.out.println(courseStr.substring(0, index));
+		Field f = getField(courseStr.substring(0, index));
+		if(f == null)
+			return null;
+		else
+			return getField(courseStr.substring(0, index)).getCourse(num);
 	}
 	
 	public void linkAllCourses() {
@@ -111,6 +126,13 @@ public class Catalog {
 		Field[] ret = new Field[fields.size()];
 		for(int i = 0; i < fields.size(); i++)
 			ret[i] = fields.get(i);
+		return ret;
+	}
+	
+	public String[] getAllFieldsStrings() {
+		String[] ret = new String[fields.size()];
+		for(int i = 0; i < fields.size(); i++)
+			ret[i] = fields.get(i).abrName;
 		return ret;
 	}
 }

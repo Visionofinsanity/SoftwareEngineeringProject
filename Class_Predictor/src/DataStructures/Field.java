@@ -26,6 +26,14 @@ public class Field {
 		return null;
 	}
 	
+	public Course[] getAllCourses() {
+		Course[] ret = new Course[courses.size()];
+		for(int i = 0; i < courses.size(); i++) {
+			ret[i] = courses.get(i);
+		}
+		return ret;
+	}
+	
 	public void linkCourse(Catalog catalog) {
 		for(Course c: courses) {
 			c.linkCourse(catalog);

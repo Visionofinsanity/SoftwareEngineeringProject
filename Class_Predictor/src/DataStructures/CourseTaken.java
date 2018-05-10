@@ -12,4 +12,15 @@ public class CourseTaken {
 	public String printToFile() {
 		return course.printToFile() + "," + grade;
 	}
+	
+	public boolean hasPassed(char toPass) {
+		String test = "ABCDF";
+		for(char c: test.toCharArray()) {
+			if(grade == c)
+				return true;
+			else if(toPass == c)
+				return false;
+		}
+		return false;
+	}
 }

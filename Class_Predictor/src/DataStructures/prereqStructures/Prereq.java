@@ -5,4 +5,5 @@ import DataStructures.Student;
 public interface Prereq {
 
 	public boolean hasPrereqs(Student student);
+	public String toString();
 }

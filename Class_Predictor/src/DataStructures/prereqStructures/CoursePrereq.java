@@ -27,5 +27,9 @@ public class CoursePrereq implements Prereq{
 	public boolean hasPrereqs(Student student) {
 		return student.hasPassed(prereq, grade);
 	}
+	
+	public String toString() {
+		return "Course Prereq: " + prereq.field.abrName + prereq.number;
+	}
 
 }

@@ -12,6 +12,11 @@ public class Course {
 	
 	public String name;
 	
+	public int gA= 0, gB = 0, gC = 0, gD = 0, gF = 0,gI = 0, gW = 0, gBlank = 0, gS = 0, gU = 0, gN = 0;
+	
+	public ArrayList<String> majorNames = new ArrayList<String>();
+	public int[] majorNums = new int[0];
+	
 	public int credits;
 	
 	public String description;
@@ -73,14 +78,14 @@ public class Course {
 			for(int i = 5; i < input.length; i++) {
 				if(Character.isUpperCase(input[i].charAt(0))) {
 					if(!con) {
-						if(Character.isDigit(input[i].charAt(input[i].length() - 1))) {
+						if(!Character.isDigit(input[i].charAt(input[i].length() - 1))) {
 							prereqs.add(new CoursePrereq(input[i].substring(0,input[i].length() - 1),
 									input[i].charAt(input[i].length() - 1)));
 						}else {
 							prereqs.add(new CoursePrereq(input[i]));
 						}
 					}else {
-						if(Character.isDigit(input[i].charAt(input[i].length() - 1))) {
+						if(!Character.isDigit(input[i].charAt(input[i].length() - 1))) {
 							prereqs.add(new ConCoursePrereq(input[i].substring(0,input[i].length() - 1),
 									input[i].charAt(input[i].length() - 1)));
 						}else {
@@ -103,8 +108,10 @@ public class Course {
 							((OrPrereqs) prereqs.get(prereqs.size() - 1)).addPrereq(new ActMathPrereq(Integer.parseInt(input[i].substring(7))));
 						}else if (input[i].indexOf("SATMATH") == 0) {
 							((OrPrereqs) prereqs.get(prereqs.size() - 1)).addPrereq(new SatMathPrereq(Integer.parseInt(input[i].substring(7))));
+						}else if (input[i].equals("instruct")){
+							
 						}else {
-							if(Character.isDigit(input[i].charAt(input[i].length() - 1))) {
+							if(!Character.isDigit(input[i].charAt(input[i].length() - 1))) {
 								((OrPrereqs) prereqs.get(prereqs.size() - 1)).addPrereq(new CoursePrereq(input[i].substring(0,input[i].length() - 1),
 										input[i].charAt(input[i].length() - 1)));
 							}else {
@@ -132,7 +139,16 @@ public class Course {
 		
 	}
 	
+	public int getLastLetterIndex(String course) {
+		for(int i = course.length() - 1; i >= 0; i--) {
+			if(!Character.isDigit(course.charAt(i)))
+				return i;
+		}
+		return -1;
+	}
+	
 	public void linkCourse(Catalog catalog) {
+		//System.out.println("THis COurse" + printToFile() );
 		for(Prereq p: prereqs) {
 			if(p instanceof CoursePrereq) {
 				((CoursePrereq) p).linkCourse(catalog);
@@ -151,6 +167,21 @@ public class Course {
 	
 	public String printToFile() {
 		return field.printToFile() + number;
+	}
+	
+	public boolean equals(Course c) {
+		if(c.field.abrName.equals(this.field.abrName) &&
+				c.number == this.number)
+			return true;
+		return false;
+	}
+	
+	public int numStudentsTaken() {
+		int ret = 0;
+		for(int i = 0; i < majorNums.length; i++) {
+			ret += majorNums[i];
+		}
+		return ret;
 	}
 	
 	public String toString() {

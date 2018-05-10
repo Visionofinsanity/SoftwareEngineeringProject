@@ -2,7 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="Resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/Java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/Java">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="Z:/Apache POI/poi-3.17/poi-3.17.jar"/>
 	<classpathentry exported="true" kind="lib" path="Z:/Apache POI/poi-3.17/poi-examples-3.17.jar"/>
 	<classpathentry exported="true" kind="lib" path="Z:/Apache POI/poi-3.17/poi-excelant-3.17.jar"/>
@@ -17,5 +21,6 @@
 	<classpathentry exported="true" kind="lib" path="Z:/Apache POI/poi-3.17/lib/junit-4.12.jar"/>
 	<classpathentry exported="true" kind="lib" path="Z:/Apache POI/poi-3.17/lib/log4j-1.2.17.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/excel-streaming-reader-master"/>
+	<classpathentry kind="lib" path="Z:/workspace/jackson-annotations-master"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
